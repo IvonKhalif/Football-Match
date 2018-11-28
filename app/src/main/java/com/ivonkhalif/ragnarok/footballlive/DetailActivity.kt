@@ -163,7 +163,7 @@ class DetailActivity : AppCompatActivity(), AnkoLogger {
 
     private fun loadGambarHome() {
         val apiSearch = ApiRepository.getRetrofit().create(ApiInterface::class.java)
-        val call = apiSearch.getIdTeamHome()
+        val call = apiSearch.getIdTeamHome(idHome)
 
         call.enqueue(object : Callback<TeamList>{
             override fun onFailure(call: Call<TeamList>, t: Throwable) {}
@@ -182,7 +182,7 @@ class DetailActivity : AppCompatActivity(), AnkoLogger {
 
     private fun loadGambarAway() {
         val apiSearch = ApiRepository.getRetrofit().create(ApiInterface::class.java)
-        val call = apiSearch.getIdTeamAway()
+        val call = apiSearch.getIdTeamAway(idAway)
 
         call.enqueue(object : Callback<TeamList>{
             override fun onFailure(call: Call<TeamList>, t: Throwable) {}
@@ -191,7 +191,7 @@ class DetailActivity : AppCompatActivity(), AnkoLogger {
                 if (response.isSuccessful){
                     val team: List<Team> = response.body()?.teams!!
                     for (item : Team? in team.iterator()){
-                        Glide.with(ctx).load(item?.strTeamBadge).into(logo_Home)
+                        Glide.with(ctx).load(item?.strTeamBadge).into(logo_Away)
                     }
                 }
             }
